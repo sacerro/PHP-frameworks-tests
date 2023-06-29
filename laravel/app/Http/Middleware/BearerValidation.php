@@ -17,7 +17,7 @@ class BearerValidation
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response|JsonResponse
     {
         $bearer = $request->bearerToken();
         if (empty($bearer)) {

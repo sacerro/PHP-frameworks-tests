@@ -3,11 +3,15 @@
 namespace Tests\Feature;
 
 use App\Http\Middleware\BearerValidation as BearerMiddleware;
+use Exception;
 use Illuminate\Http\Request;
+use JsonException;
 use Tests\TestCase;
 
 class BearerValidationFeatureTest extends TestCase
 {
+
+    private const TEST_URL = 'https://google.com';
 
     public function caseDataProvider(): array
     {
@@ -26,13 +30,13 @@ class BearerValidationFeatureTest extends TestCase
      * @param bool   $expectedResult
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      * @dataProvider caseDataProvider
      */
     public function testRequestWithBearerToken(string $bearer, bool $expectedResult): void
     {
         $bearerValidationMiddleware = new BearerMiddleware();
-        $request = Request::create('/api/short_url', 'POST', ['url' => 'https://google.com'], [], [], [
+        $request = Request::create('/api/short_url', 'POST', ['url' => self::TEST_URL], [], [], [
             'Authorization' => sprintf('Bearer %s', base64_encode($bearer)),
         ]);
         $response = $this->app->handle($request);
@@ -49,8 +53,8 @@ class BearerValidationFeatureTest extends TestCase
      *
      * @return void
      * @dataProvider caseDataProvider
-     * @throws \JsonException
-     * @throws \Exception
+     * @throws JsonException
+     * @throws Exception
      */
     public function testRequestWithoutBearerToken(string $bearer, bool $expectedResult): void
     {
