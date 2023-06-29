@@ -37,7 +37,7 @@ class BearerValidationFeatureTest extends TestCase
     {
         $bearerValidationMiddleware = new BearerMiddleware();
         $request = Request::create('/api/short_url', 'POST', ['url' => self::TEST_URL], [], [], [
-            'Authorization' => sprintf('Bearer %s', base64_encode($bearer)),
+            'Authorization' => sprintf('Bearer %s', $bearer),
         ]);
         $response = $this->app->handle($request);
         $middlewareResponse = $bearerValidationMiddleware->handle($request, static function ($req) use ($response) {
