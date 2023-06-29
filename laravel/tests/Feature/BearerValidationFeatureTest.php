@@ -78,8 +78,6 @@ class BearerValidationFeatureTest extends TestCase
         $middlewareResponse = $bearerValidationMiddleware->handle(
             $request,
             static function (Request $req) use ($response) {
-                var_dump($req->getContent());
-                die();
                 return $response;
             }
         );
