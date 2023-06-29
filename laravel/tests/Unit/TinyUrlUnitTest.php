@@ -18,12 +18,12 @@ class TinyUrlUnitTest extends TestCase
 
     /**
      * @param string $url
-     * @param string $isValidUrl
+     * @param bool $isValidUrl
      *
      * @return void
      * @dataProvider urlDataProvider
      */
-    public function testUrlShortener(string $url, bool $isValidUrl)
+    public function testUrlShortener(string $url, bool $isValidUrl): void
     {
         $shortenedUrl = TinyUrl::shortUrl($url);
         if (!$isValidUrl) {
